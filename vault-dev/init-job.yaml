@@ -1,0 +1,63 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vault-dev-init
+  namespace: vaultsync-system
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 1
+  template:
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k8s-node3v-virt.dev.itim.vn
+      restartPolicy: Never
+      activeDeadlineSeconds: 60
+      containers:
+      - env:
+        - name: VAULT_API_ADDR
+          value: http://127.0.0.1:8200
+        - name: VAULT_ADDR
+          value: http://127.0.0.1:8200
+        - name: TZ
+          value: Asia/Ho_Chi_Minh
+        image: registry.t-d-h.net/vault:1.13.2
+        imagePullPolicy: Always
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            /bin/cp -r /vault/* /vault-dev;
+            /usr/local/bin/docker-entrypoint.sh vault server -config=/configmap/extraconfig-from-values.hcl; 
+        name: vault-dev-init
+        ports:
+        - containerPort: 8200
+          name: http
+          protocol: TCP
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  /bin/vault operator init -key-shares=3 -key-threshold=3 -format=json > /vault-dev/init.txt;
+                  /bin/cp -r /vault/* /vault-dev;
+        volumeMounts:
+        - mountPath: /vault-dev
+          name: vault-dev-init-data
+        - name: "config"
+          mountPath: "/configmap/extraconfig-from-values.hcl"
+          subPath: "extraconfig-from-values.hcl"
+      volumes:
+      - hostPath:
+          path: /mnt/kubernetes/vault
+        name: vault-dev-init-data
+      - name: "config"
+        configMap:
+          name: "vault-config"

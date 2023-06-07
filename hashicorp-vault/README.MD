@@ -1,4 +1,4 @@
-Simple vault server with one node and auto unseal script
+Simple vault server with one instance config and auto unseal script
 ---
 How to use:
 1. Change all namespace in the manifest to your

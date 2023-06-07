@@ -1,33 +1,19 @@
-How to deploy vault-dev:
-
-1, change all namespace in the manifest to yours
-2, apply configmap.yaml and vault-rbac.yaml
-3, change node name in init-job.yaml then apply it
-4, get init.txt, it will look like this:
-
-        {
-        "unseal_keys_b64": [
-            "plXbYzrDeB0BV7JT/Fd4GlBqkLjshQpKK6M5LAobjhly",
-            "cKeyHZUojvr1gTE3Ym+SAty2e8FHttWWyv+3BT8e3rDQ",
-            "iuNNPAFhJv1CzDiV13YaD452t+CdaN3Ae43Ywg4063nx"
-        ],
-        "unseal_keys_hex": [
-            "a655db633ac3781d0157b253fc57781a506a90b8ec850a4a2ba3392c0a1b8e1972",
-            "70a7b21d95288efaf5813137626f9202dcb67bc147b6d596caffb7053f1edeb0d0",
-            "8ae34d3c016126fd42cc3895d7761a0f8e76b7e09d68ddc07b8dd8c20e34eb79f1"
-        ],
-        "unseal_shares": 3,
-        "unseal_threshold": 3,
-        "recovery_keys_b64": [],
-        "recovery_keys_hex": [],
-        "recovery_keys_shares": 0,
-        "recovery_keys_threshold": 0,
-        "root_token": "hvs.UrCKgpa46PvvhkOklEx87kKJ"
-        }
-
-
-
-5, replace those unseal_keys_b64 to vault-secret.yaml, then apply it
-6, apply vault-deployment.yaml, you are done
-
-hoantd created this file.
+{
+"unseal_keys_b64": [
+    "plXbYzrDeB0BV7JT/Fd4GlBqkLjshQpKK6M5LAobjhly",
+    "cKeyHZUojvr1gTE3Ym+SAty2e8FHttWWyv+3BT8e3rDQ",
+    "iuNNPAFhJv1CzDiV13YaD452t+CdaN3Ae43Ywg4063nx"
+],
+"unseal_keys_hex": [
+    "a655db633ac3781d0157b253fc57781a506a90b8ec850a4a2ba3392c0a1b8e1972",
+    "70a7b21d95288efaf5813137626f9202dcb67bc147b6d596caffb7053f1edeb0d0",
+    "8ae34d3c016126fd42cc3895d7761a0f8e76b7e09d68ddc07b8dd8c20e34eb79f1"
+],
+"unseal_shares": 3,
+"unseal_threshold": 3,
+"recovery_keys_b64": [],
+"recovery_keys_hex": [],
+"recovery_keys_shares": 0,
+"recovery_keys_threshold": 0,
+"root_token": "hvs.UrCKgpa46PvvhkOklEx87kKJ"
+}

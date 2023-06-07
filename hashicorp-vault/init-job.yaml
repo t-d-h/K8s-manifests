@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: vault-dev-init
-  namespace: vaultsync-system
+  namespace: vault
 spec:
   backoffLimit: 0
   ttlSecondsAfterFinished: 1
@@ -16,7 +16,7 @@ spec:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                - k8s-node3v-virt.dev.itim.vn
+                - #add your node name here
       restartPolicy: Never
       activeDeadlineSeconds: 60
       containers:
@@ -27,7 +27,7 @@ spec:
           value: http://127.0.0.1:8200
         - name: TZ
           value: Asia/Ho_Chi_Minh
-        image: registry.t-d-h.net/vault:1.13.2
+        image: hashicorp/vault:1.13 #or you can get newer version here: https://hub.docker.com/r/hashicorp/vault/tags
         imagePullPolicy: Always
         command: ["/bin/sh", "-c"]
         args:

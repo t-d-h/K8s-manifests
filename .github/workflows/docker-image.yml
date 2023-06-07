@@ -1,0 +1,31 @@
+
+## Edit later: using github action to automate building container images
+
+# name: CI on push
+# on:
+#   push:
+#     branches: [ main ]
+# jobs:
+#   build-push:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Log in to the Container registry
+#       uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+#       with:
+#         registry: ghcr.io
+#         username: ${{ github.actor }}
+#         password: ${{ secrets.ACCOUNT_TOKEN }}
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Run build busybox
+#       run: docker build busybox/ --tag ghcr.io/t-d-h/docker-busybox:latest
+#     - name: Push image
+#       run: docker push ghcr.io/t-d-h/docker-busybox:latest
+
+#     - name: Run build nginx
+#       run: docker build nginx/ --tag ghcr.io/t-d-h/docker-nginx:wibu
+#     - name: Push image
+#       run: docker push ghcr.io/t-d-h/docker-nginx:wibu
+
+

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cloudflare-tunnel
+  name: cloudflare-tunnel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudflare-tunnel
+  template:
+    metadata:
+      labels:
+        app: cloudflare-tunnel
+    spec:
+      containers:
+      - image: registry.t-d-h.net/cloudflared:2023.5.1
+        imagePullPolicy: Always
+        env:
+        - name: tok
+          valueFrom:
+            secretKeyRef:
+              key: token
+              name: cloudflare-tunnel-token
+        args:
+          - tunnel 
+          - --no-autoupdate 
+          - run 
+          - --token=$secret
+        name: cloudflare-tunnel
+        resources:
+          limits:
+            cpu: 1
+            memory: 512Mi
+          requests:
+            cpu: 0.1
+            memory: 128Mi

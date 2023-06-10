@@ -5,7 +5,7 @@ metadata:
   namespace: vault
 spec:
   backoffLimit: 0
-  ttlSecondsAfterFinished: 1
+  ttlSecondsAfterFinished: 100
   template:
     spec:
       affinity:
@@ -16,7 +16,7 @@ spec:
               - key: kubernetes.io/hostname
                 operator: In
                 values:
-                - #add your node name here
+                - k3
       restartPolicy: Never
       activeDeadlineSeconds: 60
       containers:
@@ -27,7 +27,7 @@ spec:
           value: http://127.0.0.1:8200
         - name: TZ
           value: Asia/Ho_Chi_Minh
-        image: hashicorp/vault:1.13 #or you can get newer version here: https://hub.docker.com/r/hashicorp/vault/tags
+        image: registry.t-d-h.net/vault:1.13 #or you can get newer version here: https://hub.docker.com/r/hashicorp/vault/tags
         imagePullPolicy: Always
         command: ["/bin/sh", "-c"]
         args:
@@ -54,6 +54,11 @@ spec:
         - name: "config"
           mountPath: "/configmap/extraconfig-from-values.hcl"
           subPath: "extraconfig-from-values.hcl"
+        securityContext:
+          runAsNonRoot: false
+          capabilities:
+            add:
+            - "SETFCAP"
       volumes:
       - hostPath:
           path: /mnt/kubernetes/vault

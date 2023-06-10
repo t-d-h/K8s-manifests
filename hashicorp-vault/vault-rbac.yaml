@@ -1,8 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: vault-tokenreview-binding1
-  namespace: vaultsync-system
+  name: vault-tokenreview-binding
+  namespace: vault
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -10,10 +10,10 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: vault-tokenreview
-  namespace: vaultsync-system
+  namespace: vault
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: vault-tokenreview
-  namespace: vaultsync-system
+  namespace: vault

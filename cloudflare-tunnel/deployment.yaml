@@ -4,8 +4,9 @@ metadata:
   labels:
     app: cloudflare-tunnel
   name: cloudflare-tunnel
+  namespace: inf
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: cloudflare-tunnel

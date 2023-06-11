@@ -15,6 +15,13 @@ spec:
       labels:
         app: cloudflare-tunnel
     spec:
+      affinity:
+        podAntiAffinity:                                 
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - topologyKey: kubernetes.io/hostname 
+            labelSelector:                               
+              matchLabels:                               
+                app: cloudflare-tunnel  
       containers:
       - image: registry.t-d-h.net/cloudflared:2023.5.1
         imagePullPolicy: Always

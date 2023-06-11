@@ -14,6 +14,15 @@ spec:
       labels:
         app: grafana
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k2
       securityContext:
         runAsUser: 1050
         runAsGroup: 1050
@@ -51,7 +60,10 @@ spec:
             - mountPath: /var/lib/grafana
               name: grafana-data
       volumes:
+        # - name: grafana-data
+        #   nfs:
+        #     server: 10.0.0.3
+        #     path: /mnt/Red-4TB/k8s/grafana
         - name: grafana-data
-          nfs:
-            server: 10.0.0.3
-            path: /mnt/Red-4TB/k8s/grafana
+          hostPath:
+            path: /mnt/kubernetes/grafana

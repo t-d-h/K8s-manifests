@@ -23,7 +23,7 @@ spec:
                 - k2
       containers:
       - name: jenkins
-        image: registry.t-d-h.net/jenkins:jdk11
+        image: jenkins/jenkins:latest-jdk11 #registry.t-d-h.net/jenkins:jdk11
         imagePullPolicy: IfNotPresent
         securityContext:
           runAsUser: 1050

@@ -6,3 +6,6 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - service.yaml
+images:
+- name: jenkins/jenkins:latest-jdk11 #registry.t-d-h.net/jenkins:jdk11
+  newTag: 9.1.0

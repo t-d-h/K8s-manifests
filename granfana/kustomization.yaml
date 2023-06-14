@@ -8,4 +8,4 @@ resources:
 - service.yaml
 images:
 - name: registry.t-d-h.net/grafana/grafana
-  newTag: 9.1.0
+  newTag: 9.2.0

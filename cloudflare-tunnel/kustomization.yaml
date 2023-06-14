@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+commonLabels:
+  app: cloudflare-tunnel
+namespace: inf
+kind: Kustomization
+resources:
+- deployment.yaml

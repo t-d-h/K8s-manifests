@@ -28,7 +28,7 @@ spec:
         runAsGroup: 1050
       containers:
         - name: grafana
-          image: grafana/grafana:9.4.12-ubuntu #registry.t-d-h.net/grafana/grafana:9.1.0
+          image: registry.t-d-h.net/grafana/grafana
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000

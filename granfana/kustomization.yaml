@@ -6,3 +6,6 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - service.yaml
+# images:
+# - name: 
+#   newTag: 1.0.2
